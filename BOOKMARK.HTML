@@ -1,0 +1,535 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin:0;
+height:100%;
+padding-left:10%;
+padding-right:10%;
+background-color:light gray;
+
+}
+
+
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px; 
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+</style>
+  <style>
+    html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.column {
+  float: left;
+  width: 33.3%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 8px;
+}
+
+.about-section {
+  padding: 50px;
+  text-align: center;
+  background-color: #474e5d;
+  color: white;
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+</style>
+
+
+<style>
+
+
+.outer-box {
+  width       :540px;
+  margin-left : 50%;
+  transform   : translateX(-50%);
+}
+
+form {
+  display          : block;
+  height           : 260px;
+  padding          : 10px;
+  border-radius    : 5px;
+  background-color : #676767;
+  box-shadow       : 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+form h1 {
+  margin-top: 5px;
+  text-align  : center;
+  font-family : 'PT Sans',
+                sans-serif;
+}
+
+form label{
+  display: inline-bock;
+  font-size: 12pt;
+  font-family : 'PT Sans',
+                sans-serif;
+}
+
+form input {
+  display       : block;
+  margin-bottom : 15px;
+  font-size     : 12pt;
+  transition    : background-color .15s,
+                  box-shadow .15s;
+}
+
+form input:last-child {
+  margin-bottom : 0;
+}
+
+input::placeholder {
+  color : lightgrey;
+}
+
+.text-box {
+  width         : 100%;
+  height        : 40px;
+  border        : 1px solid transparent;
+  border-radius : 3px;
+  box-shadow    : 0 0 5px rgba(0,0,0,0.5);
+  text-indent   : 10px;
+}
+
+.text-box:focus {
+  border : 1px solid #77c1f7;
+}
+
+.text-box[type=incorrect]:focus{
+  border : 1px solid red;
+}
+input:hover {
+  box-shadow : 0 0 10px rgba(0,0,0,0.5);
+  cursor     : text;
+}
+
+#savedBookmarks {
+  display : block;
+}
+
+.bookmark {
+  display          : inline-block;
+  width            : calc(50% - 3px);
+  height           : 110px;
+  margin-top       : 15px;
+  border-radius    : 5px;
+  background-color : #676767;
+  box-shadow       : 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.bookmark * {
+  display         : inline-block;
+  text-decoration : none;
+  font-family     : 'PT Sans',
+                    sans-serif;
+}
+
+.bookmark>div {
+  width  : calc(50% - 2px);
+  height : 110px;
+  float  : left;
+}
+
+.bookmark:after {
+  content : '';
+  clear   : both;
+}
+
+.bookmark p {
+  display       : block;
+  padding       : 10px;
+  overflow      : hidden;
+  text-overflow : ellipsis;
+  font-size     : 20pt;
+}
+
+.button {
+  display       : block;
+  min-width     : 100px;
+  margin        : 10px;
+  padding       : 10px 0;
+  color         : white;
+  border        : none;
+  border-radius : 2px;
+  box-shadow    : 0 0 5px rgba(0,0,0,0.5);
+  text-align    : center;
+  transition    : background-color .25s,
+                  box-shadow .25s;
+}
+
+.submit {
+  margin-left      : calc(50% - 50px);
+  background-color : #44acff;
+}
+
+.submit:hover {
+  background-color : #008eff;
+  box-shadow       : 0 0 10px rgba(0,0,0,0.5);
+  cursor           : pointer;
+}
+
+.visit {
+  background-color : #7e7e7e;
+}
+
+.visit:hover {
+  background-color : #4f4f4f;
+  box-shadow       : 0 0 10px rgba(0,0,0,0.5);
+  cursor           : pointer;
+}
+
+.delete {
+  background-color : #f64545;
+}
+
+.delete:hover {
+  background-color : #ff0000;
+  box-shadow       : 0 0 10px rgba(0,0,0,0.5);
+  cursor           : pointer;
+}
+
+.incorrect {
+  outline    : 1px solid red;
+  box-shadow : 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.center {
+  position  : relative;
+  top       : 50%;
+  left      : 50%;
+  transform : translate(-50%,-50%);
+}
+
+
+</style>
+</head>
+<body>
+  <div class="navbar">
+   <a href="#home">Home</a>
+   <a href="#about">About</a>
+   <a href="#covid">Covid-19</a>
+   <a href="#book">Bookmark</a>
+   <a href="#contact">Contact</a>
+  </div>
+  <h3 id ="home" >Golden Heart Foundation</h3>
+  <p style="padding-left:20px"; font-family:"century gothic";> The Golden Heart Foundation is an NGO formed by a group of friends. In 2014, out at a casual get
+together we realised that we shared the same sentiments when it came to giving back to the world.
+Counting our many blessings and being ever grateful for these, we decided that we needed to do something
+for the less fortunate. So began the story of 'The Golden Heart Foundation'.</p>
+  <p style="padding-left:20px";>Gandhiji's immortal words were our calling -  "You must BE the Change you wish to see in the world". </p>
+  
+
+
+<br>
+<br><section>
+
+
+
+<div class="container-fluid"><center>
+  <h1  >About Us</h1></center>
+  
+  <div class="row">
+    <div class="col-sm-3" ">
+      <img src=" http://www.goldenbutterflies.in/img/res/res27.jpg " alt="Pineapple" style="width:40%; height:40%;px;margin-right:15px; 
+float: left;">
+    </div>
+    <div class="col-sm-9">
+      We are just a group of like-minded friends,
+ who came together to try and give back something to the society that has given us so much. 
+We are a non-profit Foundation, so every paisa that is donated goes directly towards the betterment 
+of the underprivileged. All our projects are supervised personally by one of us. We all like to laugh a lot, 
+but what we like even more is to spread this laughter and love to everyone around us.<br>
+<br><b>Our team comprises of a 7 member committee:</b><br>
+<br><br>The President - Shehnaz Chawla
+<br><br>Vice President - Rohini MacArthur
+<br><br>Secretary - Vivian Somani
+<br><br>Treasurer - Shamim Waghmale
+
+    </div>
+  </div>
+</div><br><br>
+
+
+
+
+
+
+
+
+
+
+</section>
+
+<br>
+<section>
+
+
+<h2 id = "covid" style="text-align:center">COVID-19 Support</h2>
+  <div class="row">
+   <div class="column">
+    <div class="card">
+     <img src="http://www.goldenbutterflies.in/img/activities/post-in-1.jpg" alt="Jane" style=" padding-left:15%; padding-right:15%; width:105%; height;80%; margin-top:10%;">
+     <div class="container">
+      <h2> GB Nutri-Bowl </h2>
+      <p> We were glad to support child-patients families with groceries and nutritious food.  Many of our patients, daily wage earners  can no longer go out to work,  consequently cannot afford living expenses. Child-patients’ growing bodies need additional nutrients to cope with the medications, and absence of basic nutrition and hygiene also threatens the safely of the already-immunocompromised child. While we provided nutritional support in the form of groceries and hygiene kits to some impoverished child-patients and their families.</p>
+     </div>
+    </div>
+   </div>
+   <div class="column">
+    <div class="card">
+     <img src="http://www.goldenbutterflies.in/img/activities/post-in-2.jpg" alt="Mike" style=" padding-left:15%; padding-right:15%; width:105%; height;80%; margin-top:10%;">
+     <div class="container">
+      <h2> GB Shuttle </h2>
+      <p> The strict lockdown imposed across India since March 2020 has made access to scheduled treatment difficult for our child-patients, and transportation to get there (in absence of public transport) scarce and expensive. Adhering to the prescribed time schedule for cancer treatment is critical, as delays can cause the cancer cells to regrow and become incurable, rendering further treatment ineffective and endangering the lives of our child-patients. We provide child-patient families transportation from place of residence to respective hospital for treatment. </p>
+     </div>
+    </div>
+   </div>
+   <div class="column">
+    <div class="card">
+     <img src="http://www.goldenbutterflies.in/img/activities/post-2f.jpg" alt="John" style=" padding-left:15%; padding-right:15%; width:105%; height;80%; margin-top:10%;">
+     <div class="container">
+      <h2>GB Magic Envelope </h2>
+      <p> The COVID -19 curfew did not hold us back for long – our efforts thrived through Magic Envelope, which is mailed to our children once a month. It is an eagerly awaited, well-received A4-size treasure, which includes some craft activity (along with all the required raw materials and pictorial instruction sheet), colouring sheets, and a tiny gift. Lavanya, GB Trustee and ABT practioner, and the volunteers (WINGS) enjoy curating this envelope every month. They explore various art and craft forms as a group, to come up with new and exciting ideas that can be adapted to fit in this mailer. </p>
+     </div>
+    </div>
+   </div>
+  </div></section><br><br>
+<section>
+<h2 id="contact" style="text-align: center;"> Contact Us </h2>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.525938931807!2d80.2512989143058!3d13.129190614954219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52650ac4c83c2f%3A0x1eecab446f0960ad!2s13th%2C%20Saravanan%20Cross%20St%2C%20Kodungaiyur%20(East)%2C%20Krishnamoorthy%20Nagar%2C%20Kodungaiyur%2C%20Chennai%2C%20Tamil%20Nadu%20600118!5e0!3m2!1sen!2sin!4v1637227181037!5m2!1sen!2sin" width="1100" height="450" style="border:0; " padding-left:20%; allowfullscreen="" loading="lazy"></iframe>
+   
+</section><br><br>
+
+<section  style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4Z90wiMTwAkxupWbbxDIgAz9de3LUlLnu0A&usqp=CAU');">
+
+<div  class="outer-box">
+  <form style="margin-top:10%;"  id="myForm" method="post">
+    <h1 id="book">Enter Bookmark Details:</h1>
+    <label for="bookmarkName"><b>Name</b></label>
+    <input type="text" id="bookmarkName" class="text-box" placeholder="Bookmark Name..">
+    <label for="bookmarkURL"><b>URL</b></label>
+    <input type="text" id="bookmarkURL" class="text-box" placeholder="Bookmark URL.. e.g. http://example.com">
+    <input type="submit" class="button submit" id="submit" value="Add">
+  </form>
+
+  <div id="savedBookmarks">
+    <div class="bookmark">
+      <div>
+        <p>GHF</p>
+      </div>
+      <div>
+        <a href="https://goldheartfoundation.org/" class="button visit" target="_blank">Go to</a>
+        <a href="#" class="button delete" onclick="deleteBookmark()">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+
+
+</section>
+
+
+
+
+<script>   
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('myForm').addEventListener('submit', addBookmark);
+});
+
+function addBookmark(e) {
+  var name = document.getElementById('bookmarkName');
+  var URL = document.getElementById('bookmarkURL');
+
+  var proceed = ((name.value !== '') && (URL.value !== '')) ? true : false;
+
+  if (proceed) {
+    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    var regex = new RegExp(expression);
+    if ((URL.value).match(regex)) {
+      URL.className = 'text-box';
+      URL.type= null;
+      saveBookmark(name.value, URL.value);
+      name.value = '';
+      URL.value = '';
+    } else {
+      URL.className += " incorrect";
+      URL.type='incorrect';
+      URL.focus();
+      alert("The URL you enterd is Invalid! Please provide a valid URL.\ne.g. http://example.com, https://example.com, http://www.example.com, www.example.com, etc. ");
+    }
+  } else {
+    alert('Please fill in the details before adding.');
+    name.value = '';
+    URL.value = '';
+  }
+  e.preventDefault();
+}
+
+function saveBookmark(name, URL) {
+  var bookmarkBox = document.createElement('div');
+  var textContainer = document.createElement('div');
+  var btnContainer = document.createElement('div');
+  var text = document.createElement('p');
+  var visitBtn = document.createElement('a');
+  var deleteBtn = document.createElement('a');
+
+  bookmarkBox.className = 'bookmark';
+
+  //set the bookmark name
+  text.innerText = name;
+
+  // set prperties of visit anchor tag
+  visitBtn.href = URL;
+  visitBtn.target = '_blank';
+  visitBtn.className = 'button visit';
+  visitBtn.innerText = 'Go to'
+
+  // set prperties of delete button
+  deleteBtn.href = '#';
+  deleteBtn.className = 'button delete';
+  deleteBtn.innerText = 'Delete';
+  deleteBtn.onclick = function() {
+    deleteBookmark()
+  };
+
+  textContainer.appendChild(text);
+  btnContainer.appendChild(visitBtn);
+  btnContainer.appendChild(deleteBtn);
+  bookmarkBox.appendChild(textContainer);
+  bookmarkBox.appendChild(btnContainer);
+
+  document.getElementById('savedBookmarks').appendChild(bookmarkBox);
+  //console.log(bookmarkBox);
+
+}
+
+function deleteBookmark() {
+  var btn = this.event.target;
+  var bookmarkBox = btn.parentNode.parentNode;
+  var savedBookmarks = document.getElementById('savedBookmarks');
+  //console.log(bookmark);
+
+  savedBookmarks.removeChild(bookmarkBox);
+  return false;
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+
+</html>
